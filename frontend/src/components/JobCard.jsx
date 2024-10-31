@@ -43,7 +43,6 @@ function JobCard({
 
   const handleDeleteJob = () => {
     dispatch(deleteJob(_id));
-    dispatch(fetchJobs());
   };
 
   return (
