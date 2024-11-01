@@ -7,7 +7,9 @@ export const fetchJobs = createAsyncThunk(
       const queryParams = new URLSearchParams(filters).toString();
 
       const response = await fetch(
-        `http://localhost:3000/jobs?${queryParams}&page=${page}&limit=${limit}`
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
+        }/jobs?${queryParams}&page=${page}&limit=${limit}`
       );
 
       if (!response.ok) {
@@ -27,14 +29,17 @@ export const addJob = createAsyncThunk(
   async (jobData, { rejectWithValue }) => {
     const token = localStorage.getItem("adminToken");
     try {
-      const response = await fetch("http://localhost:3000/jobs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(jobData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/jobs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(jobData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add job");
@@ -53,13 +58,16 @@ export const deleteJob = createAsyncThunk(
   async (jobId, { rejectWithValue }) => {
     const token = localStorage.getItem("adminToken");
     try {
-      const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/jobs/${jobId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete job");
