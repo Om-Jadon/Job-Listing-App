@@ -123,6 +123,18 @@ const jobsSlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Failed to fetch jobs";
       })
+      // Handle addJob
+      .addCase(addJob.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addJob.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(addJob.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to add job";
+      })
       // Handle deleteJob
       .addCase(deleteJob.pending, (state) => {
         state.loading = true;

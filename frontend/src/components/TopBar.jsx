@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserCircle,
+  faBars,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAdmin, logoutAdmin, clearError } from "../features/adminSlice";
+import AddJobModal from "./AddJobModal";
+import { fetchJobs } from "../features/jobsSlice";
 
 function TopBar({ toggleSidebar }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isAddJobModalOpen, setAddJobModalOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
@@ -68,6 +75,15 @@ function TopBar({ toggleSidebar }) {
         >
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
+
+        {token && (
+          <button
+            onClick={() => setAddJobModalOpen(true)}
+            className="text-gray-600 hover:text-gray-800 mr-6"
+          >
+            <FontAwesomeIcon icon={faPlus} size="2x" />
+          </button>
+        )}
 
         <div className="relative">
           <button
@@ -154,6 +170,15 @@ function TopBar({ toggleSidebar }) {
           </div>
         </div>
       )}
+
+      {/* Modal for Adding Job */}
+      <AddJobModal
+        isOpen={isAddJobModalOpen}
+        onClose={() => {
+          setAddJobModalOpen(false);
+          fetchJobs();
+        }}
+      />
     </div>
   );
 }
