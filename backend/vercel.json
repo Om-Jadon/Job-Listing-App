@@ -1,5 +1,4 @@
 {
-  "installCommand": "npm install",
   "version": 2,
   "builds": [
     {
@@ -7,10 +6,15 @@
       "use": "@vercel/node"
     },
     {
-      "src": "src/**/*"
+      "src": "src/**/*",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/"
