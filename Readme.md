@@ -3,7 +3,7 @@
 This is a job listing application that allows users to view job listings. The application includes features like job filtering, and an admin authentication system.
 
 Deployed here:
-https://job-listing-app-2-frontend.onrender.com/
+https://job-listing-app-2-frontend.onrender.com/  (might take time to load for the first time as it is deployed for free, please be patient and reload it once in a while)
 
 ## Features
 
